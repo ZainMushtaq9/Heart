@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mehwish I Love You</title>
+
+<style>
+:root{
+  --pink:#ff5f7e;
+  --soft:#ffb3c7;
+  --night:#070812;
+  --moon:#dfe9ff;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background: radial-gradient(circle at top, #1b1f3b, var(--night));
+}
+
+/* BACKGROUND */
+.background{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 70% 18%, rgba(223,233,255,0.35), transparent 45%),
+    linear-gradient(to top, #000 10%, transparent 55%);
+  z-index:0;
+}
+
+/* CITY LIGHTS */
+.city{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:30%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,200,120,0.15) 0 6px,
+      transparent 6px 14px
+    );
+  filter: blur(2px);
+  opacity:0.45;
+}
+
+/* CENTER */
+.wrapper{
+  position:relative;
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:2;
+}
+
+/* TEXT */
+.love-text{
+  position:relative;
+  font-size:clamp(1.9rem, 7.2vw, 3.4rem);
+  font-weight:700;
+  color:white;
+  letter-spacing:1.2px;
+  opacity:0;
+  transform:scale(0.85);
+  animation: cinematicReveal 4.8s ease forwards;
+  animation-delay:1.8s;
+  text-shadow:
+    0 0 12px rgba(255,95,126,0.5),
+    0 0 40px rgba(255,95,126,0.35);
+}
+
+/* HEART GLOW */
+.love-text::before{
+  content:"";
+  position:absolute;
+  inset:-55px;
+  background:
+    radial-gradient(circle at 30% 30%, var(--pink), transparent 60%),
+    radial-gradient(circle at 70% 30%, var(--pink), transparent 60%),
+    radial-gradient(circle at 50% 70%, var(--pink), transparent 65%);
+  filter: blur(36px);
+  opacity:0.25;
+  z-index:-1;
+  animation: emotionalPulse 6s infinite ease-in-out;
+}
+
+/* SLOW RING */
+.ring{
+  position:absolute;
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  border:2px solid rgba(255,95,126,0.25);
+  animation: slowRing 7s infinite ease-out;
+}
+
+/* FLOATING HEARTS */
+.heart{
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:var(--pink);
+  transform:rotate(45deg);
+  animation: floatHeart linear forwards;
+}
+.heart::before,
+.heart::after{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:var(--pink);
+  border-radius:50%;
+}
+.heart::before{ left:-9px; }
+.heart::after{ top:-9px; }
+
+/* KEYFRAMES */
+@keyframes cinematicReveal{
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+@keyframes emotionalPulse{
+  0%,100%{ transform:scale(0.95); opacity:0.2;}
+  50%{ transform:scale(1.1); opacity:0.4;}
+}
+
+@keyframes slowRing{
+  0%{ transform:scale(0.7); opacity:0.7;}
+  100%{ transform:scale(1.8); opacity:0;}
+}
+
+@keyframes floatHeart{
+  from{
+    transform:translateY(0) rotate(45deg) scale(0.7);
+    opacity:0.8;
+  }
+  to{
+    transform:translateY(-140vh) rotate(45deg) scale(1.4);
+    opacity:0;
+  }
+}
+
+/* MOBILE */
+@media (max-width:480px){
+  .ring{ width:190px; height:190px; }
+}
+</style>
+</head>
+
+<body>
+<div class="background"></div>
+<div class="city"></div>
+
+<div class="wrapper">
+  <div class="ring"></div>
+  <div class="love-text">Mehwish I Love You</div>
+</div>
+
+<script>
+const wrapper = document.querySelector(".wrapper");
+
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.bottom = "-25px";
+  heart.style.opacity = Math.random()*0.4 + 0.4;
+  heart.style.animationDuration = (Math.random()*4 + 7) + "s";
+  heart.style.filter = "blur(" + (Math.random()*2) + "px)";
+  wrapper.appendChild(heart);
+
+  setTimeout(()=>heart.remove(),12000);
+}
+
+setInterval(createHeart, 520);
+</script>
+</body>
+</html>
